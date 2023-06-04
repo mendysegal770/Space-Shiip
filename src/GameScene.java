@@ -40,31 +40,25 @@ public class GameScene extends JPanel implements KeyListener {
     public static JButton start = new JButton("התחל משחק");
     public static JButton instartc = new JButton("הוראות המשחק");
 
-    public static JLabel הוראות = new JLabel("");
-    public static JLabel timer = new JLabel("");
-    public static JLabel level = new JLabel("");
+    public static JLabel instruction = new JLabel("");
+
+    public static JLabel timer = new JLabel("00" + ":" + clock);
+    public static JLabel level = new JLabel("Level" + wine);
 
     public static final int Button_HEIGHT = 100;
     public static final int Button_WIDTH = 300;
-    public static final int Button_X = (Window.WINDOW_WIDTH-Button_WIDTH)/2;
+    public static final int Button_X = (Window.WINDOW_WIDTH - Button_WIDTH) / 2;
     public static final int Button_Y = 300;
     public static Font font;
 
     private Image image;
 
-
-    public Player getPlayer() {
-        return this.player;
-    }
-
     public void newHearts() {
         hearts = new ArrayList<>();
-
         for (int i = 0; i < player.life; i++) {
             Heart heart = new Heart(((i + 1) * 150) - 140, 30);
             hearts.add(heart);
         }
-
     }
 
 
@@ -80,72 +74,78 @@ public class GameScene extends JPanel implements KeyListener {
             obstacleList.add(obstacle);
             obstacle.start();
         }
+
+
+        gameOver.setBounds(200, 20, 30, 40);
+        gameOver.setVisible(false);
+        gameOver.setFont(new Font("v",2,22));
+        gameOver.setBackground(Color.red);
+        this.add(gameOver);
+
+        youWinner.setBounds(200, 20, 30, 40);
+        youWinner.setVisible(false);
+        youWinner.setFont(font);
+        this.add(youWinner);
+
+        newGameTitle.setBounds(200, 50, 30, 40);
+        newGameTitle.setVisible(false);
+        newGameTitle.setFont(font);
+        this.add(newGameTitle);
+
+
+        level.setBounds(Window.WINDOW_WIDTH / 2, 70, 20, 30);
+       level.setFont(new Font("v",2,22));
+        level.setBackground(Color.BLACK);
+        this.add(level);
+
+        timer.setBounds(Window.WINDOW_WIDTH / 2 + 30, 10, 40, 50);
+        timer.setFont(font);
+        this.add(timer);
+
+
+        start.setBounds(Button_X, Button_Y, Button_WIDTH, Button_HEIGHT);
+        start.setFont(new Font("Ariel", 2, 22));
+        this.add(start);
+        start.setBackground(Color.red);
+
+
+        instartc.setBounds(Button_X, Button_Y + Button_HEIGHT + 20, Button_WIDTH, Button_HEIGHT);
+        instartc.setFont(new Font("Ariel", 2, 22));
+        this.add(instartc);
+        instartc.setBackground(Color.CYAN);
+
+        instruction.setBounds(Button_X, Button_Y + Button_HEIGHT + 20, 1000, 100);
+        instruction.setText(" יש להזיז את המקשים");
+        instruction.setFont(font);
+        instruction.setVisible(false);
+        instruction.setBackground(Color.white);
+        this.add(instruction);
+
+        instartc.addActionListener(e -> {
+            instartc.setVisible(false);
+            instruction.setVisible(true);
+
+        });
+        start.addActionListener(e -> {
+            GameScene.page = GameScene.GAME_PAGE;
+            instartc.setVisible(false);
+            start.setVisible(false);
+            instruction.setVisible(false);
+            GameScene.startGame = true;
+        });
+
+
+
         this.newHearts();
-        this.endGameTitles();
         this.mainGameLoop();
         this.setFocusable(true);
         this.requestFocus();
         this.addKeyListener(this);
 
 
-        start.setBounds(Button_X, Button_Y , Button_WIDTH, Button_HEIGHT);
-        start.setFont(new Font("Ariel",2,22));
-        this.add(start);
-        start.setBackground(Color.red);
-
-
-        instartc.setBounds(Button_X,Button_Y+Button_HEIGHT+20, Button_WIDTH, Button_HEIGHT);
-        instartc.setFont(new Font("Ariel",2,22));
-        this.add(instartc);
-        instartc.setBackground(Color.CYAN);
-
-        הוראות.setBounds(10, Button_Y + 50, Button_WIDTH, Button_HEIGHT);
-        this.add(הוראות);
-
-        instartc.addActionListener(e -> {
-            הוראות.setVisible(true);
-            הוראות.setText("יש להזיז את ארבעת המקשים");
-            הוראות.setFont(font);
-        });
-        start.addActionListener(e -> {
-            GameScene.page = GameScene.GAME_PAGE;
-            instartc.setVisible(false);
-            start.setVisible(false);
-            הוראות.setVisible(false);
-            GameScene.startGame = true;
-        });
     }
 
 
-    public void endGameTitles() {
-        gameOver.setBounds(200, 20, 30, 40);
-        gameOver.setVisible(false);
-        this.add(gameOver);
-        gameOver.setFont(font);
-        gameOver.setBackground(Color.red);
-
-        youWinner.setBounds(200, 20, 30, 40);
-        youWinner.setVisible(false);
-        this.add(youWinner);
-        youWinner.setFont(font);
-
-        newGameTitle.setBounds(200, 50, 30, 40);
-        newGameTitle.setVisible(false);
-        this.add(newGameTitle);
-        newGameTitle.setFont(font);
-
-
-        level.setText(" Level" + wine);
-        level.setBounds(80, 500, 30, 49);
-        this.add(level);
-        level.setFont(font);
-        level.setBackground(Color.BLACK);
-
-        timer.setText("00" + ":" + clock);
-        timer.setBounds(1000, Window.WINDOW_HEIGHT / 2, 40, 50);
-        this.add(timer);
-        timer.setFont(font);
-    }
 
 
     public void paintComponent(Graphics graphics) {

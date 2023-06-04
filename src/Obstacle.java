@@ -61,7 +61,7 @@ public class Obstacle extends Thread {
 
         }
     public void paint(Graphics graphics) {
-        ImageIcon imageIcon=new ImageIcon("Image\\abstacle.png");
+        ImageIcon imageIcon=new ImageIcon("C:\\Users\\מנדי\\Downloads\\new Obstacle.png");
         imageIcon.paintIcon(null, graphics, this.x, this.y);
         width=   imageIcon.getIconWidth();
         height=imageIcon.getIconHeight();

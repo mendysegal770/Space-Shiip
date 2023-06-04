@@ -33,7 +33,7 @@ public class Player {
 
     public void paint(Graphics graphics) {
         if (this.alive) {
-            ImageIcon imageIcon=new ImageIcon("C:\\Users\\מנדי\\Desktop\\gcusv\\Space11.png");
+            ImageIcon imageIcon=new ImageIcon("C:\\Users\\מנדי\\Downloads\\new Space.png");
             imageIcon.paintIcon(null, graphics, this.x, this.y);
          width=   imageIcon.getIconWidth();
             height=imageIcon.getIconHeight();
