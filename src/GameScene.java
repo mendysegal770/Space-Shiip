@@ -40,7 +40,7 @@ public class GameScene extends JPanel implements KeyListener {
     public static JButton start = new JButton("התחל משחק");
     public static JButton instartc = new JButton("הוראות המשחק");
 
-    public static  JLabel instruction = new JLabel();
+    JTextArea instruction = new JTextArea();
 
     public static JLabel timer = new JLabel("00" + ":" + clock);
     public static JLabel level = new JLabel("Level" + wine);
@@ -116,22 +116,26 @@ public class GameScene extends JPanel implements KeyListener {
         this.add(instartc);
         instartc.setBackground(Color.CYAN);
 
-        instruction.setBounds(Button_X-200, Button_Y + Button_HEIGHT + 20, 900, 50);
+        instruction.setBounds(0, 150, 400, 500);
         instruction.setFont(font);
         instruction.setForeground(Color.white);
+        instruction.setBackground(Color.BLUE
+        );
 
 
 
         instartc.addActionListener(e -> {
             instartc.setVisible(false);
+            instruction.setEditable(false);
+            instruction.setLineWrap(true);
+            instruction.setWrapStyleWord(true);
             this.add(instruction);
-            instruction.setText("יש להזיז את הארבעת מקשי החצים כדי לברוח מהמטאורים שמרחפים בחלל החיצון.\n\n" +
-                    "לפניך שלוש חיים,  כל פעם שתתנקש במטאור ירד לך חיים.\n\n" +
-                    "כמו כן יש למשחק שישה שלבים, כל פעם שתצליח לברוח מהמטאורים ולעבור לצד השני תעלה שלב, והמשחק יתקשה בכל פעם שתעבור שלב כי המטאורים ירחפו מהר יותר.\n\n" +
-                    "הזמן הקצוב שיש לך לעבור כל שלב הוא   30 שניות, אם לא תעבור בזמן ירד לך חיים.\n\n" +
-                    "וכך גם לשאר החצים.\n\n" +
+            instruction.setText("יש להזיז את ארבעת מקשי החצים על מנת לשלוט בחללית.\n\n" +
+                    "בתחילת המשחק עומדות לרשותך שלושה לבבות, בכל פסילה אתה מאבד אחת.\n\n" +
+                    "כמו כן יש למשחק ארבעה שלבים, כל פעם שתצליח לברוח מהמטאורים ולעבור לצד השני תעלה שלב, והמשחק יתקשה בכל פעם שתעבור שלב כי המטאורים ירחפו מהר יותר.\n\n" +
+                    "הזמן הקצוב שיש לך לעבור כל שלב הוא  30 שניות, אם לא תעבור בזמן תאבד לבבה אחת.\n\n" +
                     "ניצחת - כאשר עברת את כל השלבים.\n\n" +
-                    "הפסדת - כאשר ניגמר לך החיים.\n\n");
+                    "הפסדת - כאשר תאבד את כל הלבבות.\n\n");
 
         });
         start.addActionListener(e -> {
