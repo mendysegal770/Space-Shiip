@@ -40,7 +40,7 @@ public class GameScene extends JPanel implements KeyListener {
     public static JButton start = new JButton("התחל משחק");
     public static JButton instartc = new JButton("הוראות המשחק");
 
-    public static JLabel instruction = new JLabel("");
+    public static  JLabel instruction = new JLabel();
 
     public static JLabel timer = new JLabel("00" + ":" + clock);
     public static JLabel level = new JLabel("Level" + wine);
@@ -66,7 +66,7 @@ public class GameScene extends JPanel implements KeyListener {
         this.setLayout(null);
         this.page = HOME_PAGE;
         image = Toolkit.getDefaultToolkit().getImage("Image\\backGround.jpg");
-        font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        font = new Font(Font.SANS_SERIF, Font.PLAIN, 22);
         this.player = new Player(60, 200);
         this.pressedKeys = new boolean[4];
         for (int i = 0; i < TOTAL_OBSTACLES; i++) {
@@ -75,31 +75,33 @@ public class GameScene extends JPanel implements KeyListener {
             obstacle.start();
         }
 
-
-        gameOver.setBounds(200, 20, 30, 40);
+        gameOver.setBounds(Window.WINDOW_WIDTH / 2 - 300, 0, 250, 250);
         gameOver.setVisible(false);
-        gameOver.setFont(new Font("v",2,22));
-        gameOver.setBackground(Color.red);
+        gameOver.setFont(new Font("v", 2, 22));
+        gameOver.setForeground(Color.red);
         this.add(gameOver);
 
-        youWinner.setBounds(200, 20, 30, 40);
+        youWinner.setBounds(Window.WINDOW_WIDTH / 2 - 300, 0, 250, 250);
         youWinner.setVisible(false);
         youWinner.setFont(font);
+        youWinner.setForeground(Color.BLUE);
         this.add(youWinner);
 
-        newGameTitle.setBounds(200, 50, 30, 40);
+        newGameTitle.setBounds(Window.WINDOW_WIDTH / 2, 0, 250, 250);
         newGameTitle.setVisible(false);
         newGameTitle.setFont(font);
+        newGameTitle.setForeground(Color.CYAN);
         this.add(newGameTitle);
 
 
-        level.setBounds(Window.WINDOW_WIDTH / 2, 70, 20, 30);
-       level.setFont(new Font("v",2,22));
-        level.setBackground(Color.BLACK);
+        level.setFont(new Font("v", 2, 22));
+        level.setForeground(Color.white);
+        level.setBounds(Window.WINDOW_WIDTH / 2, 0, 100, 100);
         this.add(level);
 
-        timer.setBounds(Window.WINDOW_WIDTH / 2 + 30, 10, 40, 50);
-        timer.setFont(font);
+        timer.setBounds(Window.WINDOW_WIDTH / 2 - 100, 0, 100, 100);
+        timer.setForeground(Color.white);
+        timer.setFont(new Font("v", 2, 22));
         this.add(timer);
 
 
@@ -114,16 +116,22 @@ public class GameScene extends JPanel implements KeyListener {
         this.add(instartc);
         instartc.setBackground(Color.CYAN);
 
-        instruction.setBounds(Button_X, Button_Y + Button_HEIGHT + 20, 1000, 100);
-        instruction.setText(" יש להזיז את המקשים");
+        instruction.setBounds(Button_X-200, Button_Y + Button_HEIGHT + 20, 900, 50);
         instruction.setFont(font);
-        instruction.setVisible(false);
-        instruction.setBackground(Color.white);
-        this.add(instruction);
+        instruction.setForeground(Color.white);
+
+
 
         instartc.addActionListener(e -> {
             instartc.setVisible(false);
-            instruction.setVisible(true);
+            this.add(instruction);
+            instruction.setText("יש להזיז את הארבעת מקשי החצים כדי לברוח מהמטאורים שמרחפים בחלל החיצון.\n\n" +
+                    "לפניך שלוש חיים,  כל פעם שתתנקש במטאור ירד לך חיים.\n\n" +
+                    "כמו כן יש למשחק שישה שלבים, כל פעם שתצליח לברוח מהמטאורים ולעבור לצד השני תעלה שלב, והמשחק יתקשה בכל פעם שתעבור שלב כי המטאורים ירחפו מהר יותר.\n\n" +
+                    "הזמן הקצוב שיש לך לעבור כל שלב הוא   30 שניות, אם לא תעבור בזמן ירד לך חיים.\n\n" +
+                    "וכך גם לשאר החצים.\n\n" +
+                    "ניצחת - כאשר עברת את כל השלבים.\n\n" +
+                    "הפסדת - כאשר ניגמר לך החיים.\n\n");
 
         });
         start.addActionListener(e -> {
@@ -135,7 +143,6 @@ public class GameScene extends JPanel implements KeyListener {
         });
 
 
-
         this.newHearts();
         this.mainGameLoop();
         this.setFocusable(true);
@@ -144,8 +151,6 @@ public class GameScene extends JPanel implements KeyListener {
 
 
     }
-
-
 
 
     public void paintComponent(Graphics graphics) {
